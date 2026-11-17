@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vajo floating Home button — install snippet</title>
+<style>
+  body { font-family: Georgia, serif; max-width: 46rem; margin: 3rem auto; padding: 0 1.25rem; line-height: 1.6; color: #1b2a6b; }
+  h1 { font-size: 1.6rem; }
+  code, pre { background: #fff6e3; border: 1px solid #e8d9b8; border-radius: 6px; }
+  code { padding: 0.1em 0.35em; }
+  pre { padding: 1rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+  ol li { margin: 0.5rem 0; }
+</style>
+</head>
+<body>
+<h1>Floating "Home" button for vajo.com</h1>
+<p>This page both <strong>demonstrates</strong> the button (look bottom-right — click it) and contains
+the <strong>install snippet</strong>. It renders a floating Home button on every page it is added to,
+always visible while scrolling, and sends the user back to the dashboard page.</p>
+<ol>
+  <li>Set <code>HOME_URL</code> in the snippet to the dashboard page's final address
+      (its published URL, or wherever it ends up living on vajo.com).</li>
+  <li>Copy everything between <code>&lt;!-- VAJO HOME BUTTON — START --&gt;</code> and
+      <code>&lt;!-- VAJO HOME BUTTON — END --&gt;</code> and paste it just before
+      <code>&lt;/body&gt;</code> in your site-wide template (footer include) so it appears on every page.
+      For a single page, paste it before that page's <code>&lt;/body&gt;</code>.</li>
+</ol>
+<p>The snippet is self-contained: no libraries, no external requests, works over plain PHP/HTML pages.</p>
+
+<pre id="snippet">&lt;!-- VAJO HOME BUTTON — START --&gt;
+&lt;script&gt;
+(function () {
+  var HOME_URL = 'https://YOUR-DASHBOARD-URL-HERE/'; // &lt;-- set this
+  var s = document.createElement('style');
+  s.textContent =
+    '#vajo-home-btn{position:fixed;right:16px;bottom:max(20px,env(safe-area-inset-bottom));' +
+    'z-index:99990;display:flex;align-items:center;gap:8px;min-height:48px;padding:10px 20px;' +
+    'background:#ffc73a;color:#1b2a6b;border:3px solid #1b2a6b;border-radius:999px;' +
+    'box-shadow:4px 4px 0 #1b2a6b;font:800 17px/1 Arial,Helvetica,sans-serif;' +
+    'text-decoration:none;cursor:pointer;transition:transform .18s cubic-bezier(.215,.61,.355,1),box-shadow .18s cubic-bezier(.215,.61,.355,1)}' +
+    '#vajo-home-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #1b2a6b}' +
+    '#vajo-home-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 #1b2a6b}' +
+    '#vajo-home-btn:focus-visible{outline:4px solid #1b2a6b;outline-offset:3px}';
+  document.head.appendChild(s);
+  var a = document.createElement('a');
+  a.id = 'vajo-home-btn';
+  a.href = HOME_URL;
+  a.setAttribute('aria-label', 'Back to the dashboard home page');
+  a.innerHTML =
+    '&lt;svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;' +
+    '&lt;path d="M3 12l9-9 9 9M5 10v10a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V10"/&gt;&lt;/svg&gt;Home';
+  document.body.appendChild(a);
+})();
+&lt;/script&gt;
+&lt;!-- VAJO HOME BUTTON — END --&gt;</pre>
+
+<!-- VAJO HOME BUTTON — START (live demo on this page) -->
+<script>
+(function () {
+  var HOME_URL = '#'; // demo: replace with the dashboard page URL
+  var s = document.createElement('style');
+  s.textContent =
+    '#vajo-home-btn{position:fixed;right:16px;bottom:max(20px,env(safe-area-inset-bottom));' +
+    'z-index:99990;display:flex;align-items:center;gap:8px;min-height:48px;padding:10px 20px;' +
+    'background:#ffc73a;color:#1b2a6b;border:3px solid #1b2a6b;border-radius:999px;' +
+    'box-shadow:4px 4px 0 #1b2a6b;font:800 17px/1 Arial,Helvetica,sans-serif;' +
+    'text-decoration:none;cursor:pointer;transition:transform .18s cubic-bezier(.215,.61,.355,1),box-shadow .18s cubic-bezier(.215,.61,.355,1)}' +
+    '#vajo-home-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #1b2a6b}' +
+    '#vajo-home-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 #1b2a6b}' +
+    '#vajo-home-btn:focus-visible{outline:4px solid #1b2a6b;outline-offset:3px}';
+  document.head.appendChild(s);
+  var a = document.createElement('a');
+  a.id = 'vajo-home-btn';
+  a.href = HOME_URL;
+  a.setAttribute('aria-label', 'Back to the dashboard home page');
+  a.innerHTML =
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M3 12l9-9 9 9M5 10v10a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V10"/></svg>Home';
+  document.body.appendChild(a);
+})();
+</script>
+<!-- VAJO HOME BUTTON — END -->
+</body>
+</html>
