@@ -1,7 +1,7 @@
 /* Vajo dashboard — basic PWA service worker.
    HTML/navigations: network-first so new versions ship immediately.
    Static assets: cache-first. */
-const CACHE = 'vajo-static-v2';
+const CACHE = 'vajo-static-v3';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
